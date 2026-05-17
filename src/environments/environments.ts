@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://cake-apii-node.vercel.app'
+  apiUrl: 'https://cake-api-node.vercel.app'
 };
