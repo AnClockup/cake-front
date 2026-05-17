@@ -1,0 +1,34 @@
+<section class="produtos-page">
+  <p class="estado" *ngIf="carregando">Carregando produtos...</p>
+  <p class="estado estado-erro" *ngIf="!carregando && erro">{{ erro }}</p>
+  <p class="estado" *ngIf="!carregando && !erro && produtos.length === 0">Nenhum produto cadastrado.</p>
+
+  <div class="produtos-grid" *ngIf="!carregando && !erro && produtos.length > 0">
+    <article class="produto-card" *ngFor="let p of produtos">
+      <div class="imagem-wrapper">
+        <img
+  class="produto-imagem"
+  [src]="imagemProduto(p)"
+  (error)="usarImagemLocal($event, p)"
+  [alt]="p.name"
+  loading="lazy"
+  decoding="async"
+/>
+
+    <!--    <div class="imagem-placeholder" *ngIf="isImagemCarregando(p)">Carregando imagem...</div>-->
+      </div>
+
+      <div class="produto-info">
+        <h3>{{ p.name }}</h3>
+        <p>{{ p.description }}</p>
+        <strong>R$ {{ p.price | number:'1.2-2' }}</strong>
+        <button type="button" (click)="adicionar(p)">Adicionar ao Pedido</button>
+      </div>
+    </article>
+  </div>
+
+  <footer class="resumo-pedido" *ngIf="total > 0">
+    <p>Total do Pedido: <strong>R$ {{ total | number:'1.2-2' }}</strong></p>
+    <button type="button" (click)="finalizarCompra()">Finalizar Compra</button>
+  </footer>
+</section>
